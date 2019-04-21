@@ -1,0 +1,28 @@
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+@WebServlet(value = "/Register")
+public class Registration extends HttpServlet {
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		PrintWriter out = resp.getWriter();
+		out.println("<h1>Registration page");
+
+		if (!req.getParameter("Nickname").matches("^[A-Za-z0-9]{3,18}$")) {
+			out.println("<h1>Wrong Nickname, must be more 3 symbols and English symbols only");
+		} else if (!req.getParameter("password").matches("^[A-Za-z0-9]{6,18}$")) {
+			out.println("<h1>Wrong password, must be more 6 symbols English symbols only");
+		} else {
+			out.println("<h1>Account succeeded created<p> with Nickname - " + req.getParameter("Nickname")
+					+ " and Password - " + req.getParameter("password"));
+			AccountsHandler.accounts.put(req.getParameter("Nickname"), req.getParameter("password"));
+		}
+
+	}
+}
