@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import javax.servlet.ServletException;
@@ -10,8 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
-import static org.mockito.Mockito.when;
 
 public class ServletTestRegister {
 
@@ -29,13 +28,13 @@ public class ServletTestRegister {
 	@Test
 	public void testRegisterWithAllCorrected() throws IOException, ServletException {
 
-		when(request.getParameter("Nickname")).thenReturn("qwe");
-		when(request.getParameter("password")).thenReturn("12344321");
+		Mockito.when(request.getParameter("Nickname")).thenReturn("qwe");
+		Mockito.when(request.getParameter("password")).thenReturn("12344321");
 
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 
-		when(response.getWriter()).thenReturn(pw);
+		Mockito.when(response.getWriter()).thenReturn(pw);
 
 		Registration myServlet = new Registration();
 		myServlet.service(request, response);
@@ -47,13 +46,13 @@ public class ServletTestRegister {
 	@Test
 	public void testRegisterWithEmpty() throws IOException, ServletException {
 
-		when(request.getParameter("Nickname")).thenReturn(null);
-		when(request.getParameter("password")).thenReturn(null);
+		Mockito.when(request.getParameter("Nickname")).thenReturn(null);
+		Mockito.when(request.getParameter("password")).thenReturn(null);
 
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 
-		when(response.getWriter()).thenReturn(pw);
+		Mockito.when(response.getWriter()).thenReturn(pw);
 
 		Registration myServlet = new Registration();
 		myServlet.service(request, response);
@@ -63,13 +62,13 @@ public class ServletTestRegister {
 
 	@Test
 	public void testRegisterWithWrongNickname() throws IOException, ServletException {
-		when(request.getParameter("Nickname")).thenReturn("1");
-		when(request.getParameter("password")).thenReturn("12344321");
+		Mockito.when(request.getParameter("Nickname")).thenReturn("1");
+		Mockito.when(request.getParameter("password")).thenReturn("12344321");
 
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 
-		when(response.getWriter()).thenReturn(pw);
+		Mockito.when(response.getWriter()).thenReturn(pw);
 
 		Registration myServlet = new Registration();
 		myServlet.service(request, response);
@@ -79,13 +78,13 @@ public class ServletTestRegister {
 
 	@Test
 	public void testRegisterWithWrongPassword() throws IOException, ServletException {
-		when(request.getParameter("Nickname")).thenReturn("Akamade");
-		when(request.getParameter("password")).thenReturn("123");
+		Mockito.when(request.getParameter("Nickname")).thenReturn("Akamade");
+		Mockito.when(request.getParameter("password")).thenReturn("123");
 
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 
-		when(response.getWriter()).thenReturn(pw);
+		Mockito.when(response.getWriter()).thenReturn(pw);
 
 		Registration myServlet = new Registration();
 		myServlet.service(request, response);

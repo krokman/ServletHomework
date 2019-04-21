@@ -13,12 +13,13 @@ public class Registration extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
 		out.println("<h1>Registration page<p>");
-		try{
-		if (isCorrectedNickname(req, out) && isCorrectedPassword(req, out) && isUserNotAlreadyExist(req, out)) {
-			out.println("<h1>Account succeeded created<p> with Nickname - " + req.getParameter("Nickname")
-					+ " and Password - " + req.getParameter("password"));
-			AccountsHandler.accounts.put(req.getParameter("Nickname"), req.getParameter("password"));
-		}}catch (NullPointerException e){
+		try {
+			if (isCorrectedNickname(req, out) && isCorrectedPassword(req, out) && isUserNotAlreadyExist(req, out)) {
+				out.println("<h1>Account succeeded created<p> with Nickname - " + req.getParameter("Nickname")
+						+ " and Password - " + req.getParameter("password"));
+				AccountsHandler.accounts.put(req.getParameter("Nickname"), req.getParameter("password"));
+			}
+		} catch (NullPointerException e) {
 			out.println("Empty data, write ur data");
 		}
 	}
