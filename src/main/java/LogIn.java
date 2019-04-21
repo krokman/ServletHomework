@@ -17,7 +17,7 @@ public class LogIn extends HttpServlet {
 					out.println("<h1>Welcome " + req.getParameter("Nickname"));
 
 				} else {
-					out.println("<h1>Wrong Nickname or password" + req.getParameter("Nickname") + req.getParameter("password"));
+					out.println("<h1>Wrong Nickname or password " + req.getParameter("Nickname") + " " + req.getParameter("password"));
 				}
 			} else {
 				out.println("<h1>No users with this Nickname");
