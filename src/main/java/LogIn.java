@@ -11,17 +11,25 @@ public class LogIn extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
-		if (req.getParameter("Nickname") != null && req.getParameter("password") != null) {
-			if (AccountsHandler.accounts.get(req.getParameter("Nickname")) != null) {
-				if (AccountsHandler.accounts.get(req.getParameter("Nickname")).equals(req.getParameter("password"))) {
-					out.println("<h1>Welcome " + req.getParameter("Nickname"));
 
-				} else {
-					out.println("<h1>Wrong Nickname or password " + req.getParameter("Nickname") + " " + req.getParameter("password"));
-				}
-			} else {
-				out.println("<h1>No users with this Nickname");
-			}
+		if (isUserNotExist(req, out) && isPasswordCorrected(req, out)) {
+			out.println("<h1>Welcome " + req.getParameter("Nickname"));
 		}
+	}
+
+	private boolean isUserNotExist(HttpServletRequest req, PrintWriter out) {
+		if (AccountsHandler.accounts.get(req.getParameter("Nickname")) == null) {
+			out.println("There`s no such user");
+			return false;
+		}
+		return true;
+	}
+
+	private boolean isPasswordCorrected(HttpServletRequest req, PrintWriter out) {
+		if (!AccountsHandler.accounts.get(req.getParameter("Nickname")).equals(req.getParameter("password"))) {
+			out.println("Wrong password");
+			return false;
+		}
+		return true;
 	}
 }
