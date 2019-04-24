@@ -11,14 +11,17 @@ public class LogIn extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
-
-		if (isUserNotExist(req, out) && isPasswordCorrected(req, out)) {
-			out.println("<h1>Welcome " + req.getParameter("Nickname"));
+		try {
+			if (isUserNotExist(req, out) && isPasswordCorrected(req, out)) {
+				out.println("<h1>Welcome " + req.getParameter("Nickname"));
+			}
+		}catch (NullPointerException e){
+			out.println("<h1>Wrong data ");
 		}
 	}
 
 	private boolean isUserNotExist(HttpServletRequest req, PrintWriter out) {
-		if (AccountsHandler.accounts.get(req.getParameter("Nickname")) == null) {
+		if (UserHandler.usersStorage.getUserByNickname(req.getParameter("Nickname")) == null) {
 			out.println("There`s no such user");
 			return false;
 		}
@@ -26,7 +29,7 @@ public class LogIn extends HttpServlet {
 	}
 
 	private boolean isPasswordCorrected(HttpServletRequest req, PrintWriter out) {
-		if (!AccountsHandler.accounts.get(req.getParameter("Nickname")).equals(req.getParameter("password"))) {
+		if (!UserHandler.usersStorage.getUserByNickname(req.getParameter("Nickname")).equals(req.getParameter("Nickname"))) {
 			out.println("Wrong password");
 			return false;
 		}

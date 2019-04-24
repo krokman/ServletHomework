@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 
 @WebServlet(value = "/Register")
 public class Registration extends HttpServlet {
-
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
@@ -17,7 +16,7 @@ public class Registration extends HttpServlet {
 			if (isCorrectedNickname(req, out) && isCorrectedPassword(req, out) && isUserNotAlreadyExist(req, out)) {
 				out.println("<h1>Account succeeded created<p> with Nickname - " + req.getParameter("Nickname")
 						+ " and Password - " + req.getParameter("password"));
-				AccountsHandler.accounts.put(req.getParameter("Nickname"), req.getParameter("password"));
+				UserHandler.usersStorage.addUser(new User(req.getParameter("Nickname"), req.getParameter("password")));
 			}
 		} catch (NullPointerException e) {
 			out.println("Empty data, write ur data");
@@ -42,7 +41,7 @@ public class Registration extends HttpServlet {
 	}
 
 	private boolean isUserNotAlreadyExist(HttpServletRequest req, PrintWriter out) {
-		if (AccountsHandler.accounts.get(req.getParameter("Nickname")) != null) {
+		if (UserHandler.usersStorage.getUserByNickname(req.getParameter("Nickname")) != null) {
 			out.println("User with this Nickname already exist");
 			return false;
 		}
