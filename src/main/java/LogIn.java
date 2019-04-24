@@ -15,7 +15,7 @@ public class LogIn extends HttpServlet {
 			if (isUserNotExist(req, out) && isPasswordCorrected(req, out)) {
 				out.println("<h1>Welcome " + req.getParameter("Nickname"));
 			}
-		}catch (NullPointerException e){
+		} catch (NullPointerException e) {
 			out.println("<h1>Wrong data ");
 		}
 	}
@@ -29,7 +29,8 @@ public class LogIn extends HttpServlet {
 	}
 
 	private boolean isPasswordCorrected(HttpServletRequest req, PrintWriter out) {
-		if (!UserHandler.usersStorage.getUserByNickname(req.getParameter("Nickname")).equals(req.getParameter("Nickname"))) {
+		if (!UserHandler.usersStorage.getUserByNickname(req.getParameter("Nickname")).getPassword()
+				.equals(req.getParameter("password"))) {
 			out.println("Wrong password");
 			return false;
 		}
