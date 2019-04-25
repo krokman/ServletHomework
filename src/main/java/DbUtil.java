@@ -2,10 +2,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class DbUtil {
+class DbUtil {
 	private static Connection connection = null;
 
-	public static Connection getConnection() {
+	static Connection getConnection() {
 		if (connection != null) {
 			return connection;
 		} else {
@@ -14,8 +14,6 @@ public class DbUtil {
 						"root", "root");
 
 			} catch (SQLException e) {
-				e.printStackTrace();
-			}catch (Exception e){
 				e.printStackTrace();
 			}
 			return connection;

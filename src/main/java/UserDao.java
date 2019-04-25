@@ -1,13 +1,16 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class UserDao {
+class UserDao {
 	private Connection connection;
 
-	public UserDao() {
+	UserDao() {
 		connection = DbUtil.getConnection();
 	}
 
-	public void addUser(User user) {
+	void addUser(User user) {
 		try {
 			PreparedStatement preparedStatement = connection
 					.prepareStatement("insert into table_users(nickname, password) values(?,?)");
@@ -19,27 +22,29 @@ public class UserDao {
 			e.printStackTrace();
 		}
 	}
-	public void deleteUser(String nickname){
-		try{
+
+	void deleteUser(String nickname) {
+		try {
 			PreparedStatement preparedStatement = connection.prepareStatement("delete from table_users where table_users.nickname=?");
 			preparedStatement.setString(1, nickname);
 			preparedStatement.executeUpdate();
-		}catch(SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	public User getUserByNickname(String nickname){
+
+	User getUserByNickname(String nickname) {
 		User user = new User();
-		try{
+		try {
 			PreparedStatement preparedStatement = connection
 					.prepareStatement("select * from table_users where nickname=?");
-			preparedStatement.setString(1,nickname);
+			preparedStatement.setString(1, nickname);
 			ResultSet rs = preparedStatement.executeQuery();
-			if(rs.next()){
+			if (rs.next()) {
 				user.setNickName(rs.getString("nickname"));
 				user.setPassword(rs.getString("password"));
 			}
-		}catch (SQLException e){
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return user;

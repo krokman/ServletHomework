@@ -16,7 +16,8 @@ public class Registration extends HttpServlet {
 			if (isCorrectedNickname(req, out) && isCorrectedPassword(req, out) && isUserNotAlreadyExist(req, out)) {
 				out.println("<h1>Account succeeded created<p> with Nickname - " + req.getParameter("Nickname")
 						+ " and Password - " + req.getParameter("password"));
-				UserHandler.usersStorage.addUser(new User(req.getParameter("Nickname"), req.getParameter("password")));
+				UserHandler.usersStorage.addUser(new User(req.getParameter("Nickname")
+						, req.getParameter("password")));
 			}
 		} catch (NullPointerException e) {
 			out.println("Empty data, write ur data");
