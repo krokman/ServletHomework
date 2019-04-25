@@ -2,10 +2,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-class DbUtil {
+public class DbUtil {
 	private static Connection connection = null;
 
-	static Connection getConnection() {
+	public static Connection getConnection() {
 		if (connection != null) {
 			return connection;
 		} else {

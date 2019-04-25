@@ -1,3 +1,3 @@
-class UserHandler {
-	static UserDao usersStorage = new UserDao();
+public class UserHandler {
+	public static UserDao usersStorage = new UserDao();
 }

@@ -3,14 +3,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-class UserDao {
+public class UserDao {
 	private Connection connection;
 
-	UserDao() {
+	public UserDao() {
 		connection = DbUtil.getConnection();
 	}
 
-	void addUser(User user) {
+	public void addUser(User user) {
 		try {
 			PreparedStatement preparedStatement = connection
 					.prepareStatement("insert into table_users(nickname, password) values(?,?)");
@@ -23,7 +23,7 @@ class UserDao {
 		}
 	}
 
-	void deleteUser(String nickname) {
+	public void deleteUser(String nickname) {
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement("delete from table_users where table_users.nickname=?");
 			preparedStatement.setString(1, nickname);
@@ -33,7 +33,7 @@ class UserDao {
 		}
 	}
 
-	User getUserByNickname(String nickname) {
+	public User getUserByNickname(String nickname) {
 		User user = new User();
 		try {
 			PreparedStatement preparedStatement = connection

@@ -1,28 +1,28 @@
-class User {
+public class User {
 	private String nickName;
 	private String password;
 
-	User(String nickName, String password) {
+	public User(String nickName, String password) {
 		this.nickName = nickName;
 		this.password = password;
 	}
 
-	User() {
+	public User() {
 	}
 
-	String getNickName() {
+	public String getNickName() {
 		return nickName;
 	}
 
-	void setNickName(String nickName) {
+	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
 
-	String getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	void setPassword(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 }
