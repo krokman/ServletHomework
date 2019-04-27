@@ -16,6 +16,7 @@
     <form action = "RegistrationPage.html">
     <input type="submit" value="Register" >
 </form>
+    <p><a href="UserController?action=insert">Add User</a></p>
 </h3>
 </body>
 </html>

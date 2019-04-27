@@ -8,6 +8,12 @@ import java.io.PrintWriter;
 
 @WebServlet(value = "/LogIn")
 public class LogIn extends HttpServlet {
+	private UserDao dao;
+
+	public LogIn() {
+		super();
+		dao = new UserDao();
+	}
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
@@ -21,7 +27,7 @@ public class LogIn extends HttpServlet {
 	}
 
 	private boolean isUserNotExist(HttpServletRequest req, PrintWriter out) {
-		if (UserHandler.usersStorage.getUserByNickname(req.getParameter("Nickname")) == null) {
+		if (dao.getUserByNickname(req.getParameter("Nickname")) == null) {
 			out.println("There`s no such user");
 			return false;
 		}
@@ -29,7 +35,7 @@ public class LogIn extends HttpServlet {
 	}
 
 	private boolean isPasswordCorrected(HttpServletRequest req, PrintWriter out) {
-		if (!UserHandler.usersStorage.getUserByNickname(req.getParameter("Nickname")).getPassword()
+		if (!dao.getUserByNickname(req.getParameter("Nickname")).getPassword()
 				.equals(req.getParameter("password"))) {
 			out.println("Wrong password");
 			return false;

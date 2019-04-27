@@ -1,21 +1,24 @@
 public class User {
-	private String nickName;
+	private String nickname;
 	private String password;
-
-	public User(String nickName, String password) {
-		this.nickName = nickName;
-		this.password = password;
-	}
+	private String email;
 
 	public User() {
 	}
 
-	public String getNickName() {
-		return nickName;
+	public User(String nickname, String password, String email) {
+		this.nickname = nickname;
+		this.password = password;
+		this.email = email;
 	}
 
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getPassword() {
@@ -24,5 +27,13 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

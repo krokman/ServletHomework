@@ -1,7 +1,6 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
 	private Connection connection;
@@ -10,43 +9,73 @@ public class UserDao {
 		connection = DbUtil.getConnection();
 	}
 
-	public void addUser(User user) {
-		try {
+	public void addUser(User user){
+		try{
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("insert into table_users(nickname, password) values(?,?)");
-			preparedStatement.setString(1, user.getNickName());
-			preparedStatement.setString(2, user.getPassword());
+					.prepareStatement("INSERT INTO USERS(NICKNAME, PASSWORD, EMAIL) VALUES(?,?,?)");
+			preparedStatement.setString(1,user.getNickname());
+			preparedStatement.setString(2,user.getPassword());
+			preparedStatement.setString(3,user.getEmail());
 			preparedStatement.executeUpdate();
 
-		} catch (SQLException e) {
+		}catch (SQLException e){
 			e.printStackTrace();
 		}
 	}
-
-	public void deleteUser(String nickname) {
-		try {
-			PreparedStatement preparedStatement = connection.prepareStatement("delete from table_users where table_users.nickname=?");
-			preparedStatement.setString(1, nickname);
+	public void deleteUser(String nickname){
+		try{
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("DELETE FROM USERS WHERE NICKNAME=?");
+			preparedStatement.setString(1,nickname);
 			preparedStatement.executeUpdate();
-		} catch (SQLException e) {
+		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-
-	public User getUserByNickname(String nickname) {
+	public void updateUser(User user){
+		try{
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("UPDATE USERS SET NICKNAME=?, PASSWORD=?, EMAIL=? WHERE NICKNAME=?");
+			preparedStatement.setString(1,user.getNickname());
+			preparedStatement.setString(2,user.getPassword());
+			preparedStatement.setString(3, user.getEmail());
+			preparedStatement.setString(4,user.getNickname());
+			preparedStatement.executeUpdate();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	public User getUserByNickname(String nickname){
 		User user = new User();
-		try {
+		try{
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("select * from table_users where nickname=?");
-			preparedStatement.setString(1, nickname);
-			ResultSet rs = preparedStatement.executeQuery();
-			if (rs.next()) {
-				user.setNickName(rs.getString("nickname"));
-				user.setPassword(rs.getString("password"));
+					.prepareStatement("SELECT * FROM USERS WHERE NICKNAME=?");
+			preparedStatement.setString(1,nickname);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if(resultSet.next()){
+				user.setNickname(resultSet.getString("NICKNAME"));
+				user.setPassword(resultSet.getString("PASSWORD"));
+				user.setEmail(resultSet.getString("EMAIL"));
 			}
-		} catch (SQLException e) {
+		}catch (SQLException e){
 			e.printStackTrace();
 		}
 		return user;
 	}
+	public List<User> getAllUsers(){
+		List<User> userList = new ArrayList<>();
+		try{
+			Statement statement = connection.createStatement();
+			ResultSet resultSet = statement.executeQuery("SELECT * FROM USERS");
+			while(resultSet.next()){
+				userList.add(new User(resultSet.getString("NICKNAME"), resultSet.getString("PASSWORD"),
+						resultSet.getString("EMAIL")));
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return userList;
+	}
+
 }
