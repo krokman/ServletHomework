@@ -20,7 +20,6 @@ public class LogIn extends HttpServlet {
 			if (isUserExist(req, out) && isPasswordCorrected(req, out)) {
 				adminCheck(req, resp);
 				out.println("<h1>Welcome " + req.getParameter("Nickname"));
-				req.getSession().setAttribute("privacy", dao.getUserByNickname("Nickname"));
 			}
 		} catch (NullPointerException e) {
 			out.println("<h1>Wrong data ");
