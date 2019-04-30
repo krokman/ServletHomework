@@ -18,25 +18,25 @@ public class UserController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String forward="";
+		String forward = "";
 		String action = request.getParameter("action");
-		if (action.equalsIgnoreCase("delete")){
+		if (action.equalsIgnoreCase("delete")) {
 			String nickname = request.getParameter("nickname");
 			dao.deleteUser(nickname);
 			forward = LIST_USER;
 			request.setAttribute("users", dao.getAllUsers());
-		} else if (action.equalsIgnoreCase("edit")){
+		} else if (action.equalsIgnoreCase("edit")) {
 			forward = INSERT_OR_EDIT;
 			String nickname = request.getParameter("nickname");
 			User user = dao.getUserByNickname(nickname);
 			request.setAttribute("user", user);
-		} else if (action.equalsIgnoreCase("listUser")){
+		} else if (action.equalsIgnoreCase("listUser")) {
 			forward = LIST_USER;
 			request.setAttribute("users", dao.getAllUsers());
 		} else {
 			forward = INSERT_OR_EDIT;
 		}
-		request.getRequestDispatcher(forward).forward(request,response);
+		request.getRequestDispatcher(forward).forward(request, response);
 
 	}
 
@@ -48,11 +48,9 @@ public class UserController extends HttpServlet {
 		user.setEmail(request.getParameter("email"));
 		user.setRole(request.getParameter("role"));
 		String nickname = dao.getUserByNickname(request.getParameter("nickname")).getNickname();
-		if(nickname == null || nickname.isEmpty())
-		{
+		if (nickname == null || nickname.isEmpty()) {
 			dao.addUser(user);
-		}
-		else{
+		} else {
 			dao.updateUser(user);
 		}
 		RequestDispatcher view = request.getRequestDispatcher(LIST_USER);

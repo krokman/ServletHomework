@@ -30,6 +30,7 @@ public class UserControllerFilter implements Filter {
 			request.getRequestDispatcher("/LogIn").forward(servletRequest, servletResponse);
 		}
 	}
+
 	@Override
 	public void destroy() {
 	}

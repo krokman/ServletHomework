@@ -15,7 +15,7 @@ public class DbUtil {
 						"root", "root");
 			} catch (SQLException e) {
 				e.printStackTrace();
-			}catch (ClassNotFoundException e){
+			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 		}

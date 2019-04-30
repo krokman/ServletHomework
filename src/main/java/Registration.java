@@ -14,16 +14,17 @@ public class Registration extends HttpServlet {
 		super();
 		dao = new UserDao();
 	}
+
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		PrintWriter out = resp.getWriter();
 		out.println("<h1>Registration page<p>");
 		try {
-			if (isCorrectedNickname(req, out) && isCorrectedPassword(req, out) ) {
+			if (isCorrectedNickname(req, out) && isCorrectedPassword(req, out)) {
 				out.println("<h1>Account succeeded created<p> with Nickname - " + req.getParameter("Nickname")
 						+ " and Password - " + req.getParameter("password"));
 				dao.addUser(new User(req.getParameter("Nickname"),
-						req.getParameter("password"),req.getParameter("email"),req.getParameter("role")));
+						req.getParameter("password"), req.getParameter("email"), req.getParameter("role")));
 			}
 		} catch (NullPointerException e) {
 			out.println("Empty data, write ur data");

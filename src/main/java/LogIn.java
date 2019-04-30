@@ -49,7 +49,7 @@ public class LogIn extends HttpServlet {
 			HttpSession newSession = req.getSession(true);
 
 			//setting session to expiry in 5 mins
-			newSession.setMaxInactiveInterval(5*60);
+			newSession.setMaxInactiveInterval(5 * 60);
 
 			Cookie message = new Cookie("privacy", "admin");
 			resp.addCookie(message);
