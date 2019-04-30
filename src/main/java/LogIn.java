@@ -44,7 +44,7 @@ public class LogIn extends HttpServlet {
 			Cookie message = new Cookie("privacy", "admin");
 			resp.addCookie(message);
 			resp.sendRedirect("/UserController?action=listUser");
-		return true;
+			return true;
 		}
 		return false;
 	}
