@@ -15,6 +15,7 @@
         <th>Nickname</th>
         <th>Password</th>
         <th>Email</th>
+        <th>Role</th>
         <th colspan=2>Action</th>
     </tr>
     </thead>
@@ -24,6 +25,7 @@
             <td><c:out value="${user.nickname}" /></td>
             <td><c:out value="${user.password}" /></td>
             <td><c:out value="${user.email}" /></td>
+            <td><c:out value="${user.role}" /><td>
             <td><a href="UserController?action=edit&nickname=<c:out value="${user.nickname}"/>">Update</a></td>
             <td><a href="UserController?action=delete&nickname=<c:out value="${user.nickname}"/>">Delete</a></td>
         </tr>

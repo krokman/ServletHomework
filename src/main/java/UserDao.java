@@ -12,10 +12,11 @@ public class UserDao {
 	public void addUser(User user){
 		try{
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("INSERT INTO USERS(NICKNAME, PASSWORD, EMAIL) VALUES(?,?,?)");
+					.prepareStatement("INSERT INTO USERS(NICKNAME, PASSWORD, EMAIL, ROLE) VALUES(?,?,?,?)");
 			preparedStatement.setString(1,user.getNickname());
 			preparedStatement.setString(2,user.getPassword());
 			preparedStatement.setString(3,user.getEmail());
+			preparedStatement.setString(4,user.getRole());
 			preparedStatement.executeUpdate();
 
 		}catch (SQLException e){
@@ -35,11 +36,12 @@ public class UserDao {
 	public void updateUser(User user){
 		try{
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("UPDATE USERS SET NICKNAME=?, PASSWORD=?, EMAIL=? WHERE NICKNAME=?");
+					.prepareStatement("UPDATE USERS SET NICKNAME=?, PASSWORD=?, EMAIL=?, ROLE=? WHERE NICKNAME=?");
 			preparedStatement.setString(1,user.getNickname());
 			preparedStatement.setString(2,user.getPassword());
 			preparedStatement.setString(3, user.getEmail());
-			preparedStatement.setString(4,user.getNickname());
+			preparedStatement.setString(5,user.getNickname());
+			preparedStatement.setString(4,user.getRole());
 			preparedStatement.executeUpdate();
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -57,6 +59,7 @@ public class UserDao {
 				user.setNickname(resultSet.getString("NICKNAME"));
 				user.setPassword(resultSet.getString("PASSWORD"));
 				user.setEmail(resultSet.getString("EMAIL"));
+				user.setRole(resultSet.getString("ROLE"));
 			}
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -70,7 +73,7 @@ public class UserDao {
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM USERS");
 			while(resultSet.next()){
 				userList.add(new User(resultSet.getString("NICKNAME"), resultSet.getString("PASSWORD"),
-						resultSet.getString("EMAIL")));
+						resultSet.getString("EMAIL"),resultSet.getString("ROLE")));
 			}
 		}catch (SQLException e){
 			e.printStackTrace();

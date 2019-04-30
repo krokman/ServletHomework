@@ -8,7 +8,6 @@ import java.io.IOException;
 
 @WebServlet(value = "/UserController")
 public class UserController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 	private static String INSERT_OR_EDIT = "/user.jsp";
 	private static String LIST_USER = "/listUser.jsp";
 	private UserDao dao;
@@ -21,7 +20,6 @@ public class UserController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String forward="";
 		String action = request.getParameter("action");
-
 		if (action.equalsIgnoreCase("delete")){
 			String nickname = request.getParameter("nickname");
 			dao.deleteUser(nickname);
@@ -43,10 +41,12 @@ public class UserController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		User user = new User();
 		user.setNickname(request.getParameter("nickname"));
 		user.setPassword(request.getParameter("password"));
 		user.setEmail(request.getParameter("email"));
+		user.setRole(request.getParameter("role"));
 		String nickname = dao.getUserByNickname(request.getParameter("nickname")).getNickname();
 		if(nickname == null || nickname.isEmpty())
 		{

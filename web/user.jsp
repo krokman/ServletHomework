@@ -21,8 +21,11 @@
         type="text" name="password"
         value="<c:out value="${user.password}" />" /> <br />
     Email : <input type="text" name="email"
-                   value="<c:out value="${user.email}" />" /> <br /> <input
-        type="submit" value="Submit" />
+                   value="<c:out value="${user.email}" />" /> <br />
+    Role : <input type="text" name="role"
+                  value="<c:out value="${user.role}" />" /> <br />
+    <input type="submit" value="Submit" />
+
 </form>
 </body>
 </html>
