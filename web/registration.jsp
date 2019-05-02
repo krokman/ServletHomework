@@ -18,7 +18,7 @@
         <input type="text" name="email"/><p>
         Role<p>
         <input type="text" name="role"/><p>
-        <input type="submit" value="Registration" >
+        <input type="submit" value="Registration">
     </form>
 </h3>
 </body>

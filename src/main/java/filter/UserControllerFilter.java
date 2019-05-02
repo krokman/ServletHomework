@@ -1,3 +1,5 @@
+package filter;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
@@ -30,7 +32,6 @@ public class UserControllerFilter implements Filter {
 			request.getRequestDispatcher("/LogIn").forward(servletRequest, servletResponse);
 		}
 	}
-
 	@Override
 	public void destroy() {
 	}

@@ -1,3 +1,8 @@
+package servlet;
+
+import dao.UserDao;
+import model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,11 +25,12 @@ public class Registration extends HttpServlet {
 					req.getParameter("password"), req.getParameter("email"), req.getParameter("role")));
 			req.setAttribute("user", dao.getUserByNickname(req.getParameter("Nickname")));
 			req.getRequestDispatcher("afterRegistration.jsp").forward(req, resp);
-		} else {
+		}else {
 			req.setAttribute("data", "wrong");
 			req.getRequestDispatcher("afterRegistration.jsp").forward(req, resp);
 		}
 	}
+
 
 	private boolean isCorrectedNickname(HttpServletRequest req) {
 		if (!req.getParameter("Nickname").matches("^[A-Za-z0-9]{3,18}$")) {

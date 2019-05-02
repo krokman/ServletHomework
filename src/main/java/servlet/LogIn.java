@@ -1,3 +1,7 @@
+package servlet;
+
+import dao.UserDao;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -14,8 +18,8 @@ public class LogIn extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (isUserExist(req) && isPasswordCorrected(req) && !isAdmin(req, resp)) {
-			req.setAttribute("user", dao.getUserByNickname(req.getParameter("Nickname")));
-			req.getRequestDispatcher("userPage.jsp").forward(req, resp);
+			req.getSession().setAttribute("user", dao.getUserByNickname(req.getParameter("Nickname")));
+			req.getRequestDispatcher("/Market").forward(req, resp);
 		}
 	}
 
@@ -44,8 +48,9 @@ public class LogIn extends HttpServlet {
 			Cookie message = new Cookie("privacy", "admin");
 			resp.addCookie(message);
 			resp.sendRedirect("/UserController?action=listUser");
-			return true;
+		return true;
 		}
 		return false;
 	}
+
 }
