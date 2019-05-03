@@ -1,13 +1,17 @@
 package service;
 
 
-import javax.mail.*;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class MailService {
-	public static void sendMessage(String toEmail,int code){
+	public static void sendMessage(String toEmail, int code) {
 
 		final String username = "javatest54321@gmail.com";
 		final String password = "Java54321test";

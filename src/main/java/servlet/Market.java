@@ -17,10 +17,11 @@ import java.io.IOException;
 public class Market extends HttpServlet {
 
 	private GoodDao goodDao = new GoodDao();
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("goods", goodDao.getAllGoods());
-		req.getRequestDispatcher("market.jsp").forward(req,resp);
+		req.getRequestDispatcher("market.jsp").forward(req, resp);
 	}
 
 	@Override
@@ -28,8 +29,8 @@ public class Market extends HttpServlet {
 		int code = RandomCodeUtil.getRandomCode();
 		CodeService.codeList.add(code);
 		req.getSession().setAttribute("code", code);
-		User user = (User)req.getSession().getAttribute("user");
+		User user = (User) req.getSession().getAttribute("user");
 		MailService.sendMessage(user.getEmail(), code);
-		req.getRequestDispatcher("buy.jsp").forward(req,resp);
+		req.getRequestDispatcher("buy.jsp").forward(req, resp);
 	}
 }
