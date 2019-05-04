@@ -34,7 +34,7 @@ public class MailService {
 				});
 
 		try {
-			logger.debug("sending message");
+			logger.debug("sending a message");
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("javatest54321@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO,
@@ -44,7 +44,7 @@ public class MailService {
 
 			Transport.send(message);
 
-			System.out.println("Done");
+			logger.debug("message was sended");
 
 		} catch (MessagingException e) {
 			logger.error("cant send a message" + e);
