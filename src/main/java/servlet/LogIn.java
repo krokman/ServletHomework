@@ -2,6 +2,7 @@ package servlet;
 
 import dao.UserDao;
 import org.apache.log4j.Logger;
+import util.HashPasswordUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class LogIn extends HttpServlet {
 	private UserDao dao;
 	final static Logger logger = Logger.getLogger(LogIn.class);
+
 	public LogIn() {
 		dao = new UserDao();
 	}
@@ -40,7 +42,8 @@ public class LogIn extends HttpServlet {
 
 	private boolean isPasswordCorrected(HttpServletRequest req) {
 		if (!dao.getUserByNickname(req.getParameter("Nickname")).getPassword()
-				.equals(req.getParameter("password"))) {
+				.equals(HashPasswordUtil.getHashPassword(req.getParameter("password"),
+						dao.getUserByNickname(req.getParameter("Nickname")).getSalt()))) {
 			logger.warn("wrong password was entered");
 			return false;
 		}

@@ -33,5 +33,6 @@
     </tbody>
 </table>
 <p><a href="UserController?action=insert">Add User</a></p>
+<p><a href="GoodController?action=goodList">Goods Page</a></p>
 </body>
 </html>

@@ -53,19 +53,16 @@ public class UserController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		User user = new User();
-		user.setNickname(request.getParameter("nickname"));
-		user.setPassword(request.getParameter("password"));
-		user.setEmail(request.getParameter("email"));
-		user.setRole(request.getParameter("role"));
-		logger.debug("user editing" + user);
 		String nickname = dao.getUserByNickname(request.getParameter("nickname")).getNickname();
 		if (nickname == null || nickname.isEmpty()) {
 			logger.debug("user adding");
+			User user = new User(request.getParameter("nickname"), request.getParameter("password"),
+					request.getParameter("email"), request.getParameter("role"), true);
 			dao.addUser(user);
 		} else {
 			logger.debug("user editing");
+			User user = new User(request.getParameter("nickname"), request.getParameter("password"),
+					request.getParameter("email"), request.getParameter("role"), true);
 			dao.updateUser(user);
 		}
 		RequestDispatcher view = request.getRequestDispatcher(LIST_USER);

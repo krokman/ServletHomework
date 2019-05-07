@@ -24,7 +24,7 @@ public class Registration extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (isCorrectedNickname(req) && isCorrectedPassword(req)) {
 			dao.addUser(new User(req.getParameter("Nickname"),
-					req.getParameter("password"), req.getParameter("email"), req.getParameter("role")));
+					req.getParameter("password"), req.getParameter("email"), req.getParameter("role"), true));
 			req.setAttribute("user", dao.getUserByNickname(req.getParameter("Nickname")));
 			logger.debug("new user registered");
 			logger.trace("redirect to afterRegistration page");

@@ -20,7 +20,7 @@ public class GoodDao {
 		connection = DbUtil.getConnection();
 	}
 
-	public void addUser(Good good) {
+	public void addGood(Good good) {
 		try {
 			logger.trace("adding good request");
 			PreparedStatement preparedStatement = connection
@@ -54,6 +54,33 @@ public class GoodDao {
 			logger.error("wrong request data" + e);
 		}
 		return good;
+	}
+
+	public void deleteGood(String name) {
+		try {
+			logger.trace("deleting good request");
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("DELETE FROM GOODS WHERE NAME=?");
+			preparedStatement.setString(1, name);
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("wrong request data" + e);
+		}
+	}
+
+	public void updateGood(Good good) {
+		try {
+			logger.trace("updating good request");
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("UPDATE GOODS SET NAME=?, DESCRIPTION=?, PRICE=? WHERE NAME=?");
+			preparedStatement.setString(1, good.getName());
+			preparedStatement.setString(2, good.getDescription());
+			preparedStatement.setString(3, good.getPrice());
+			preparedStatement.setString(4, good.getName());
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			logger.error("wrong request data" + e);
+		}
 	}
 
 	public List<Good> getAllGoods() {

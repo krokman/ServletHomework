@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class RandomCodeUtil {
 	final static Logger logger = Logger.getLogger(RandomCodeUtil.class);
+
 	public static int getRandomCode() {
 		logger.trace("generation of random code");
 		Random r = new Random();

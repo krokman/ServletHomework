@@ -24,11 +24,12 @@ public class UserDao {
 		try {
 			logger.trace("adding user request");
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("INSERT INTO USERS(NICKNAME, PASSWORD, EMAIL, ROLE) VALUES(?,?,?,?)");
+					.prepareStatement("INSERT INTO USERS(NICKNAME, PASSWORD, EMAIL, ROLE, SALT) VALUES(?,?,?,?,?)");
 			preparedStatement.setString(1, user.getNickname());
 			preparedStatement.setString(2, user.getPassword());
 			preparedStatement.setString(3, user.getEmail());
 			preparedStatement.setString(4, user.getRole());
+			preparedStatement.setString(5, user.getSalt());
 			preparedStatement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -52,11 +53,12 @@ public class UserDao {
 		try {
 			logger.trace("updating user request");
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("UPDATE USERS SET NICKNAME=?, PASSWORD=?, EMAIL=?, ROLE=? WHERE NICKNAME=?");
+					.prepareStatement("UPDATE USERS SET NICKNAME=?, PASSWORD=?, EMAIL=?, ROLE=?, SALT=? WHERE NICKNAME=?");
 			preparedStatement.setString(1, user.getNickname());
 			preparedStatement.setString(2, user.getPassword());
 			preparedStatement.setString(3, user.getEmail());
-			preparedStatement.setString(5, user.getNickname());
+			preparedStatement.setString(5, user.getSalt());
+			preparedStatement.setString(6, user.getNickname());
 			preparedStatement.setString(4, user.getRole());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
@@ -78,6 +80,7 @@ public class UserDao {
 				user.setPassword(resultSet.getString("PASSWORD"));
 				user.setEmail(resultSet.getString("EMAIL"));
 				user.setRole(resultSet.getString("ROLE"));
+				user.setSalt(resultSet.getString("SALT"));
 			}
 		} catch (SQLException e) {
 			logger.error("wrong request data" + e);

@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<form action = "/Buy">
+<form action = "/BuyServlet">
     Enter your Code from email<p>
     <input type="text" name="code"/><p>
     <input type="submit" value="code">

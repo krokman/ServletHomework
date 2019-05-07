@@ -13,6 +13,7 @@ import java.io.IOException;
 @WebServlet("/BuyServlet")
 public class BuyServlet extends HttpServlet {
 	final static Logger logger = Logger.getLogger(BuyServlet.class);
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (CodeService.checkCode(Integer.parseInt(req.getParameter("code")))) {

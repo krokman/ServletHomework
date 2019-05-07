@@ -1,5 +1,7 @@
 package model;
 
+import util.HashPasswordUtil;
+
 import java.util.Objects;
 
 public class User {
@@ -7,6 +9,7 @@ public class User {
 	private String password;
 	private String email;
 	private String role;
+	private String salt;
 
 	public User() {
 	}
@@ -16,6 +19,17 @@ public class User {
 		this.password = password;
 		this.email = email;
 		this.role = role;
+	}
+
+	public User(String nickname, String password, String email, String role, boolean withSalt) {
+		this.nickname = nickname;
+		this.password = password;
+		this.email = email;
+		this.role = role;
+		if (withSalt) {
+			salt = HashPasswordUtil.getSalt();
+			this.password = HashPasswordUtil.getHashPassword(password, salt);
+		}
 	}
 
 	public String getNickname() {
@@ -50,6 +64,14 @@ public class User {
 		this.role = role;
 	}
 
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -58,11 +80,12 @@ public class User {
 		return Objects.equals(nickname, user.nickname) &&
 				Objects.equals(password, user.password) &&
 				Objects.equals(email, user.email) &&
-				Objects.equals(role, user.role);
+				Objects.equals(role, user.role) &&
+				Objects.equals(salt, user.salt);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(nickname, password, email, role);
+		return Objects.hash(nickname, password, email, role, salt);
 	}
 }
