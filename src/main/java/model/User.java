@@ -1,24 +1,41 @@
 package model;
 
+
 import util.HashPasswordUtil;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User {
+	@Id
+	@Column(name = "id")
+	private int id;
+	@Column(name = "nickname")
 	private String nickname;
+	@Column(name = "password")
 	private String password;
+	@Column(name = "email")
 	private String email;
+	@Column(name = "role")
 	private String role;
+	@Column(name = "salt")
 	private String salt;
 
 	public User() {
 	}
 
-	public User(String nickname, String password, String email, String role) {
+	public User(int id, String nickname, String password, String email, String role, String salt) {
+		this.id = id;
 		this.nickname = nickname;
 		this.password = password;
 		this.email = email;
 		this.role = role;
+		this.salt = salt;
 	}
 
 	public User(String nickname, String password, String email, String role, boolean withSalt) {
@@ -30,6 +47,26 @@ public class User {
 			salt = HashPasswordUtil.getSalt();
 			this.password = HashPasswordUtil.getHashPassword(password, salt);
 		}
+	}
+
+	public User(int id, String nickname, String password, String email, String role, boolean withSalt) {
+		this.id = id;
+		this.nickname = nickname;
+		this.password = password;
+		this.email = email;
+		this.role = role;
+		if (withSalt) {
+			salt = HashPasswordUtil.getSalt();
+			this.password = HashPasswordUtil.getHashPassword(password, salt);
+		}
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNickname() {
@@ -77,7 +114,8 @@ public class User {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		User user = (User) o;
-		return Objects.equals(nickname, user.nickname) &&
+		return id == user.id &&
+				Objects.equals(nickname, user.nickname) &&
 				Objects.equals(password, user.password) &&
 				Objects.equals(email, user.email) &&
 				Objects.equals(role, user.role) &&
@@ -86,6 +124,6 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(nickname, password, email, role, salt);
+		return Objects.hash(id, nickname, password, email, role, salt);
 	}
 }

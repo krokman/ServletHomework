@@ -36,16 +36,17 @@ public class GoodDao {
 		}
 	}
 
-	public Good getGoodByName(String name) {
+	public Good getGoodById(int id) {
 		Good good = new Good();
 		try {
 			logger.trace("getting good request");
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("SELECT * FROM GOODS WHERE NAME=?");
-			preparedStatement.setString(1, name);
+					.prepareStatement("SELECT * FROM GOODS WHERE id=?");
+			preparedStatement.setInt(1, id);
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
+				good.setId(resultSet.getInt("ID"));
 				good.setName(resultSet.getString("NAME"));
 				good.setDescription(resultSet.getString("DESCRIPTION"));
 				good.setPrice(resultSet.getString("PRICE"));
@@ -56,12 +57,12 @@ public class GoodDao {
 		return good;
 	}
 
-	public void deleteGood(String name) {
+	public void deleteGood(int id) {
 		try {
 			logger.trace("deleting good request");
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("DELETE FROM GOODS WHERE NAME=?");
-			preparedStatement.setString(1, name);
+					.prepareStatement("DELETE FROM GOODS WHERE id=?");
+			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("wrong request data" + e);
@@ -72,11 +73,12 @@ public class GoodDao {
 		try {
 			logger.trace("updating good request");
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("UPDATE GOODS SET NAME=?, DESCRIPTION=?, PRICE=? WHERE NAME=?");
+					.prepareStatement("UPDATE GOODS SET NAME=?, DESCRIPTION=?, PRICE=? WHERE id=?");
 			preparedStatement.setString(1, good.getName());
 			preparedStatement.setString(2, good.getDescription());
 			preparedStatement.setString(3, good.getPrice());
 			preparedStatement.setString(4, good.getName());
+			preparedStatement.setInt(4, good.getId());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("wrong request data" + e);
@@ -90,7 +92,7 @@ public class GoodDao {
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM GOODS");
 			while (resultSet.next()) {
-				goodList.add(new Good(resultSet.getString("NAME"), resultSet.getString("DESCRIPTION"),
+				goodList.add(new Good(resultSet.getInt("ID"), resultSet.getString("NAME"), resultSet.getString("DESCRIPTION"),
 						resultSet.getString("PRICE")));
 			}
 		} catch (SQLException e) {

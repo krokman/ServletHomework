@@ -13,7 +13,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/GoodController", "/UserController"})
+@WebFilter(urlPatterns = {"/AdminServlet/*", "/GoodServlet/*"})
 public class UserControllerFilter implements Filter {
 	final static Logger logger = Logger.getLogger(UserControllerFilter.class);
 

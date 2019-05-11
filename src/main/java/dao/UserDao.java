@@ -37,12 +37,12 @@ public class UserDao {
 		}
 	}
 
-	public void deleteUser(String nickname) {
+	public void deleteUser(int id) {
 		try {
 			logger.trace("deleting user request");
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("DELETE FROM USERS WHERE NICKNAME=?");
-			preparedStatement.setString(1, nickname);
+					.prepareStatement("DELETE FROM users WHERE id=?");
+			preparedStatement.setInt(1, id);
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			logger.error("wrong request data" + e);
@@ -53,12 +53,12 @@ public class UserDao {
 		try {
 			logger.trace("updating user request");
 			PreparedStatement preparedStatement = connection
-					.prepareStatement("UPDATE USERS SET NICKNAME=?, PASSWORD=?, EMAIL=?, ROLE=?, SALT=? WHERE NICKNAME=?");
+					.prepareStatement("UPDATE USERS SET NICKNAME=?, PASSWORD=?, EMAIL=?, ROLE=?, SALT=? WHERE ID=?");
 			preparedStatement.setString(1, user.getNickname());
 			preparedStatement.setString(2, user.getPassword());
 			preparedStatement.setString(3, user.getEmail());
 			preparedStatement.setString(5, user.getSalt());
-			preparedStatement.setString(6, user.getNickname());
+			preparedStatement.setInt(6, user.getId());
 			preparedStatement.setString(4, user.getRole());
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
@@ -76,6 +76,30 @@ public class UserDao {
 			ResultSet resultSet = preparedStatement.executeQuery();
 
 			if (resultSet.next()) {
+				user.setId(resultSet.getInt("ID"));
+				user.setNickname(resultSet.getString("NICKNAME"));
+				user.setPassword(resultSet.getString("PASSWORD"));
+				user.setEmail(resultSet.getString("EMAIL"));
+				user.setRole(resultSet.getString("ROLE"));
+				user.setSalt(resultSet.getString("SALT"));
+			}
+		} catch (SQLException e) {
+			logger.error("wrong request data" + e);
+		}
+		return user;
+	}
+
+	public User getUserById(int id) {
+		User user = new User();
+		try {
+			logger.trace("getting user request");
+			PreparedStatement preparedStatement = connection
+					.prepareStatement("SELECT * FROM USERS WHERE id=?");
+			preparedStatement.setInt(1, id);
+			ResultSet resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.next()) {
+				user.setId((resultSet.getInt("ID")));
 				user.setNickname(resultSet.getString("NICKNAME"));
 				user.setPassword(resultSet.getString("PASSWORD"));
 				user.setEmail(resultSet.getString("EMAIL"));
@@ -95,8 +119,13 @@ public class UserDao {
 			Statement statement = connection.createStatement();
 			ResultSet resultSet = statement.executeQuery("SELECT * FROM USERS");
 			while (resultSet.next()) {
-				userList.add(new User(resultSet.getString("NICKNAME"), resultSet.getString("PASSWORD"),
-						resultSet.getString("EMAIL"), resultSet.getString("ROLE")));
+				userList.add(new User(
+						resultSet.getInt("ID"),
+						resultSet.getString("NICKNAME"),
+						resultSet.getString("PASSWORD"),
+						resultSet.getString("EMAIL"),
+						resultSet.getString("ROLE"),
+						resultSet.getString("SALT")));
 			}
 		} catch (SQLException e) {
 			logger.error("wrong request data" + e);

@@ -61,7 +61,7 @@ public class LogIn extends HttpServlet {
 			Cookie message = new Cookie("privacy", "admin");
 			resp.addCookie(message);
 			logger.trace("redirect to market with admin");
-			resp.sendRedirect("/UserController?action=listUser");
+			resp.sendRedirect("/AdminServlet");
 			return true;
 		}
 		return false;

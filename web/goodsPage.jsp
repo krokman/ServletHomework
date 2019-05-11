@@ -5,13 +5,13 @@
 
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
     <title>Show All Goods</title>
 </head>
 <body>
 <table border=1>
     <thead>
     <tr>
+        <th>id</th>>
         <th>name</th>
         <th>description</th>
         <th>price</th>
@@ -22,17 +22,18 @@
     <tbody>
     <c:forEach items="${goods}" var="goods">
         <tr>
+            <td><c:out value="${goods.id}" /></td>
             <td><c:out value="${goods.name}" /></td>
             <td><c:out value="${goods.description}" /></td>
             <td><c:out value="${goods.price}" /></td>
 
-            <td><a href="GoodController?action=edit&name=<c:out value="${goods.name}"/>">Update</a></td>
-            <td><a href="GoodController?action=delete&name=<c:out value="${goods.name}"/>">Delete</a></td>
+            <td><a href="GoodServlet/update?id=<c:out value="${goods.id}"/>">Update</a></td>
+            <td><a href="GoodServlet/delete?id=<c:out value="${goods.id}"/>">Delete</a></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<p><a href="GoodController?action=insert">Add Good</a></p>
-<p><a href="UserController?action=listUser">All users Page</a></p>
+<p><a href="addGood.jsp">Add Good</a></p>
+<p><a href="AdminServlet">All users Page</a></p>
 </body>
 </html>
