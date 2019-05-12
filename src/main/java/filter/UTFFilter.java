@@ -20,7 +20,9 @@ public class UTFFilter implements Filter {
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		encoding = filterConfig.getInitParameter("requestEncoding");
-		if (encoding == null) encoding = "UTF-8";
+		if (encoding == null) {
+			encoding = "UTF-8";
+		}
 	}
 
 	@Override
