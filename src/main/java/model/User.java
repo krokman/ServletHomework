@@ -10,20 +10,20 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "USERS")
 public class User {
 	@Id
-	@Column(name = "Id")
+	@Column(name = "ID")
 	private int id;
-	@Column(name = "Nickname")
+	@Column(name = "NICKNAME")
 	private String nickname;
-	@Column(name = "Password")
+	@Column(name = "PASSWORD")
 	private String password;
-	@Column(name = "Email")
+	@Column(name = "EMAIL")
 	private String email;
-	@Column(name = "Role")
+	@Column(name = "ROLE")
 	private String role;
-	@Column(name = "Salt")
+	@Column(name = "SALT")
 	private String salt;
 
 	public User() {

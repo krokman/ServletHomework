@@ -7,16 +7,16 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Goods")
+@Table(name = "GOODS")
 public class Good {
 	@Id
-	@Column(name = "Id")
+	@Column(name = "ID")
 	private int id;
-	@Column(name = "Name")
+	@Column(name = "NAME")
 	private String name;
-	@Column(name = "Description")
+	@Column(name = "DESCRIPTION")
 	private String description;
-	@Column(name = "Price")
+	@Column(name = "PRICE")
 	private String price;
 
 	public Good() {
