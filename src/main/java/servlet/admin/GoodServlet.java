@@ -1,6 +1,7 @@
 package servlet.admin;
 
 import dao.GoodDao;
+import dao.GoodDaoHib;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -13,7 +14,7 @@ import java.io.IOException;
 @WebServlet("/GoodServlet")
 public class GoodServlet extends HttpServlet {
 	final static Logger logger = Logger.getLogger(GoodServlet.class);
-	private GoodDao goodDao = new GoodDao();
+	private GoodDao goodDao = new GoodDaoHib();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

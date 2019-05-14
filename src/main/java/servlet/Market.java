@@ -1,6 +1,6 @@
 package servlet;
 
-import dao.GoodDao;
+import dao.GoodDaoSQL;
 import model.User;
 import org.apache.log4j.Logger;
 import service.CodeService;
@@ -17,12 +17,12 @@ import java.io.IOException;
 @WebServlet("/Market")
 public class Market extends HttpServlet {
 	final static Logger logger = Logger.getLogger(Market.class);
-	private GoodDao goodDao = new GoodDao();
+	private GoodDaoSQL goodDaoSQL = new GoodDaoSQL();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("attribute good is setting ");
-		req.setAttribute("goods", goodDao.getAllGoods());
+		req.setAttribute("goods", goodDaoSQL.getAllGoods());
 		logger.trace("redirect to market");
 		req.getRequestDispatcher("market.jsp").forward(req, resp);
 	}

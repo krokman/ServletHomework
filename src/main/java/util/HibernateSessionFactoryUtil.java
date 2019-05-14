@@ -24,7 +24,7 @@ public class HibernateSessionFactoryUtil {
 				sessionFactory = configuration.buildSessionFactory(builder.build());
 
 			} catch (Exception e) {
-				logger.error("wrong session data", e);
+				logger.error("wrong session data",e);
 			}
 		}
 		return sessionFactory;

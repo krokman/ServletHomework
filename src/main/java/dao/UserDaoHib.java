@@ -8,14 +8,14 @@ import util.HibernateSessionFactoryUtil;
 
 import java.util.List;
 
-public class UserDaoHib {
+public class UserDaoHib implements UserDao{
 	final static Logger logger = Logger.getLogger(UserDaoHib.class);
 
-	public User findById(int id) {
+	public User getUserById(int id) {
 		return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(User.class, id);
 	}
 
-	public void save(User user) {
+	public void addUser(User user) {
 		logger.debug("adding user");
 		Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
 		Transaction tx1 = session.beginTransaction();
@@ -24,7 +24,7 @@ public class UserDaoHib {
 		session.close();
 	}
 
-	public void update(User user) {
+	public void updateUser(User user) {
 		logger.debug("updating user");
 		Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
 		Transaction tx1 = session.beginTransaction();
@@ -33,17 +33,17 @@ public class UserDaoHib {
 		session.close();
 	}
 
-	public void delete(User user) {
+	public void deleteUser(int id) {
 		logger.debug("deleting user");
 		Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
 		Transaction tx1 = session.beginTransaction();
-		session.delete(user);
+		session.delete(getUserById(id));
 		tx1.commit();
 		session.close();
 	}
 
 
-	public List<User> findAll() {
+	public List<User> getAllUsers() {
 		logger.debug("getting all user");
 		List<User> users = (List<User>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From User").list();
 		return users;

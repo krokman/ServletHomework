@@ -14,14 +14,13 @@ import java.io.IOException;
 @WebServlet("/AdminServlet/delete")
 public class DeleteUserServlet extends HttpServlet {
 	final static Logger logger = Logger.getLogger(DeleteUserServlet.class);
-	private UserDao userDao = new UserDao();
-	private UserDaoHib userDaoHib = new UserDaoHib();
+	private UserDao userDao = new UserDaoHib();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.debug("user deleting");
 		int id = Integer.parseInt(req.getParameter("id"));
-		userDaoHib.delete(userDaoHib.findById(id));
+		userDao.deleteUser(id);
 		resp.sendRedirect("/AdminServlet");
 	}
 

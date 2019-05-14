@@ -8,14 +8,14 @@ import util.HibernateSessionFactoryUtil;
 
 import java.util.List;
 
-public class GoodDaoHib {
+public class GoodDaoHib implements GoodDao {
 	final static Logger logger = Logger.getLogger(GoodDaoHib.class);
 
-	public Good findById(int id) {
+	public Good getGoodById(int id) {
 		return HibernateSessionFactoryUtil.getSessionFactory().openSession().get(Good.class, id);
 	}
 
-	public void save(Good good) {
+	public void addGood(Good good) {
 		logger.debug("adding good");
 		Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
 		Transaction tx1 = session.beginTransaction();
@@ -24,7 +24,7 @@ public class GoodDaoHib {
 		session.close();
 	}
 
-	public void update(Good good) {
+	public void updateGood(Good good) {
 		logger.debug("updating good");
 		Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
 		Transaction tx1 = session.beginTransaction();
@@ -33,17 +33,17 @@ public class GoodDaoHib {
 		session.close();
 	}
 
-	public void delete(Good good) {
+	public void deleteGood(int id) {
 		logger.debug("deleting good");
 		Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
 		Transaction tx1 = session.beginTransaction();
-		session.delete(good);
+		session.delete(getGoodById(id));
 		tx1.commit();
 		session.close();
 	}
 
 
-	public List<Good> findAll() {
+	public List<Good> getAllGoods() {
 		logger.debug("getting all good");
 		List<Good> users = (List<Good>) HibernateSessionFactoryUtil.getSessionFactory().openSession().createQuery("From Good").list();
 		return users;

@@ -1,6 +1,7 @@
 package servlet.admin;
 
 import dao.UserDao;
+import dao.UserDaoHib;
 import model.User;
 import org.apache.log4j.Logger;
 
@@ -14,7 +15,7 @@ import java.io.IOException;
 @WebServlet("/AdminServlet/update")
 public class UpdateUserServlet extends HttpServlet {
 	final static Logger logger = Logger.getLogger(UpdateUserServlet.class);
-	private UserDao userDao = new UserDao();
+	private UserDao userDao = new UserDaoHib();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

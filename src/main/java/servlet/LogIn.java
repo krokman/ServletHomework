@@ -1,6 +1,6 @@
 package servlet;
 
-import dao.UserDao;
+import dao.UserDaoSQL;
 import org.apache.log4j.Logger;
 import util.HashPasswordUtil;
 
@@ -15,11 +15,11 @@ import java.io.IOException;
 
 @WebServlet(value = "/LogIn")
 public class LogIn extends HttpServlet {
-	private UserDao dao;
+	private UserDaoSQL dao;
 	final static Logger logger = Logger.getLogger(LogIn.class);
 
 	public LogIn() {
-		dao = new UserDao();
+		dao = new UserDaoSQL();
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package servlet;
 
-import dao.UserDao;
+import dao.UserDaoSQL;
 import model.User;
 import org.apache.log4j.Logger;
 
@@ -13,11 +13,11 @@ import java.io.IOException;
 
 @WebServlet(value = "/Registration")
 public class Registration extends HttpServlet {
-	private UserDao dao;
+	private UserDaoSQL dao;
 	final static Logger logger = Logger.getLogger(Registration.class);
 
 	public Registration() {
-		dao = new UserDao();
+		dao = new UserDaoSQL();
 	}
 
 	@Override

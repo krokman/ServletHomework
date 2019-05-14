@@ -2,6 +2,7 @@ package servlet.admin;
 
 
 import dao.UserDao;
+import dao.UserDaoHib;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -14,7 +15,7 @@ import java.io.IOException;
 @WebServlet("/AdminServlet")
 public class AdminServlet extends HttpServlet {
 	final static Logger logger = Logger.getLogger(AdminServlet.class);
-	private UserDao userDao = new UserDao();
+	private UserDao userDao = new UserDaoHib();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
