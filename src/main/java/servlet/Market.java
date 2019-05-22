@@ -1,8 +1,10 @@
 package servlet;
 
 import dao.GoodDaoSQL;
+import model.Good;
 import model.User;
 import org.apache.log4j.Logger;
+import service.BasketGood;
 import service.CodeService;
 import service.MailService;
 import util.RandomCodeUtil;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet("/Market")
 public class Market extends HttpServlet {
@@ -23,12 +26,15 @@ public class Market extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.trace("attribute good is setting ");
 		req.setAttribute("goods", goodDaoSQL.getAllGoods());
+
+		req.setAttribute("baskets", req.getSession().getAttribute("BasketGood"));
 		logger.trace("redirect to market");
 		req.getRequestDispatcher("market.jsp").forward(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		int code = RandomCodeUtil.getRandomCode();
 		logger.debug("random code initializing = " + code);
 		CodeService.codeList.add(code);

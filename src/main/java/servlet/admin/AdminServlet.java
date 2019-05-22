@@ -3,6 +3,7 @@ package servlet.admin;
 
 import dao.UserDao;
 import dao.UserDaoHib;
+import model.User;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -20,7 +21,7 @@ public class AdminServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.debug("user list getting");
-		req.setAttribute("users", userDao.getAllUsers());
+		req.setAttribute("users", userDao.getAll(User.class));
 		req.getRequestDispatcher("listUser.jsp").forward(req, resp);
 	}
 

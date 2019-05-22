@@ -8,7 +8,32 @@
     <title>Show All Goods</title>
 </head>
 <body>
+
 <table border=1>
+    <H1>Basket of Goods</H1>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${baskets}" var="basket">
+        <tr>
+            <td><c:out value="${basket.name}" /></td>
+            <td><c:out value="${basket.description}" /></td>
+            <td><c:out value="${basket.price}" /></td>
+        </tr>
+    </c:forEach>
+    </tbody>
+    <td><form method="post" action="Market?name=Buy">
+        <input type="submit" value="Buy Goods" />
+    </form>
+    </td>
+
+<table border=1>
+    <H1>Market</H1>
     <thead>
     <tr>
         <th>Name</th>
@@ -18,13 +43,14 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${goods}" var="goods">
+    <c:forEach items="${goods}" var="good">
         <tr>
-            <td><c:out value="${goods.name}" /></td>
-            <td><c:out value="${goods.description}" /></td>
-            <td><c:out value="${goods.price}" /></td>
-            <td><form method="post" action="Market?name=<c:out value="${goods.name}"/>">
-            <input type="submit" value="Buy" />
+            <td><c:out value="${good.name}" /></td>
+            <td><c:out value="${good.description}" /></td>
+            <td><c:out value="${good.price}" /></td>
+            <td><form method="post" action="Basket?name=<c:out value="${good.name}"/>&description=
+                <c:out value="${good.description}"/>&price=<c:out value="${good.price}"/>">
+            <input type="submit" value="Add to Basket" />
         </form>
             </td>
         </tr>

@@ -3,6 +3,7 @@ package servlet.admin;
 import dao.GoodDao;
 
 import dao.GoodDaoHib;
+import model.Good;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,7 @@ public class DeleteGoodServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.debug("good deleting");
 		int id = Integer.parseInt(req.getParameter("id"));
-		goodDao.deleteGood(id);
+		goodDao.delete(Good.class, id);
 		resp.sendRedirect("/GoodServlet");
 	}
 

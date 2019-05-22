@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoodDaoSQL implements GoodDao{
+public class GoodDaoSQL {
 	final static Logger logger = Logger.getLogger(GoodDaoSQL.class);
 	private Connection connection;
 

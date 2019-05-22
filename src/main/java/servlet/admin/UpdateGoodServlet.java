@@ -21,7 +21,7 @@ public class UpdateGoodServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.debug("good getting by id");
 		int id = Integer.parseInt(req.getParameter("id"));
-		Good good = goodDao.getGoodById(id);
+		Good good = goodDao.getById(Good.class,id);
 		req.setAttribute("good", good);
 		req.getRequestDispatcher("/good.jsp").forward(req, resp);
 	}
@@ -31,7 +31,7 @@ public class UpdateGoodServlet extends HttpServlet {
 		logger.debug("good updating");
 		Good good = new Good(Integer.parseInt(req.getParameter("id")), req.getParameter("name"), req.getParameter("description"),
 				req.getParameter("price"));
-		goodDao.updateGood(good);
+		goodDao.update(good);
 		resp.sendRedirect("/GoodServlet");
 	}
 }

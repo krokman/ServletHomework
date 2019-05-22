@@ -21,7 +21,7 @@ public class UpdateUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.debug("user getting by id");
 		int id = Integer.parseInt(req.getParameter("id"));
-		User user = userDao.getUserById(id);
+		User user = userDao.getById(User.class,id);
 		req.setAttribute("user", user);
 		req.getRequestDispatcher("/user.jsp").forward(req, resp);
 	}
@@ -31,7 +31,7 @@ public class UpdateUserServlet extends HttpServlet {
 		logger.debug("user updating");
 		User user = new User(Integer.parseInt(req.getParameter("id")), req.getParameter("nickname"), req.getParameter("password"),
 				req.getParameter("email"), req.getParameter("role"), true);
-		userDao.updateUser(user);
+		userDao.update(user);
 		resp.sendRedirect("/AdminServlet");
 	}
 }

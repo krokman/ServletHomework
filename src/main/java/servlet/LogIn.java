@@ -2,8 +2,10 @@ package servlet;
 
 import dao.UserDaoSQL;
 import org.apache.log4j.Logger;
+import service.BasketGood;
 import util.HashPasswordUtil;
 
+import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -26,6 +28,7 @@ public class LogIn extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		if (isUserExist(req) && isPasswordCorrected(req) && !isAdmin(req, resp)) {
 			logger.debug("user entered");
+			req.getSession().setAttribute("BasketGood", new BasketGood().goodsList);
 			req.getSession().setAttribute("user", dao.getUserByNickname(req.getParameter("Nickname")));
 			logger.trace("redirect to market with user");
 			req.getRequestDispatcher("/Market").forward(req, resp);

@@ -20,7 +20,7 @@ public class AddGoodServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.debug("adding good");
-		goodDao.addGood(new Good(
+		goodDao.add(new Good(
 				req.getParameter("name"),
 				req.getParameter("description"),
 				req.getParameter("price")));

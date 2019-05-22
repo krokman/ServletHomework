@@ -2,6 +2,7 @@ package servlet.admin;
 
 import dao.UserDao;
 import dao.UserDaoHib;
+import model.User;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -20,7 +21,7 @@ public class DeleteUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.debug("user deleting");
 		int id = Integer.parseInt(req.getParameter("id"));
-		userDao.deleteUser(id);
+		userDao.delete(User.class,id);
 		resp.sendRedirect("/AdminServlet");
 	}
 

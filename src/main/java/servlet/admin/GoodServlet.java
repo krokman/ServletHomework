@@ -2,6 +2,7 @@ package servlet.admin;
 
 import dao.GoodDao;
 import dao.GoodDaoHib;
+import model.Good;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -19,7 +20,7 @@ public class GoodServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.debug("good list getting");
-		req.setAttribute("goods", goodDao.getAllGoods());
+		req.setAttribute("goods", goodDao.getAll(Good.class));
 		req.getRequestDispatcher("/goodsPage.jsp").forward(req, resp);
 	}
 
