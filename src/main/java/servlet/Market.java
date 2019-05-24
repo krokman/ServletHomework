@@ -1,10 +1,8 @@
 package servlet;
 
 import dao.GoodDaoSQL;
-import model.Good;
 import model.User;
 import org.apache.log4j.Logger;
-import service.BasketGood;
 import service.CodeService;
 import service.MailService;
 import util.RandomCodeUtil;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 @WebServlet("/Market")
 public class Market extends HttpServlet {

@@ -5,7 +5,6 @@ import org.apache.log4j.Logger;
 import service.BasketGood;
 import util.HashPasswordUtil;
 
-import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;

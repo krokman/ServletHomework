@@ -1,15 +1,23 @@
 package model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "GOODS")
 public class Good {
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "ID")
 	private int id;
 	@Column(name = "NAME")
@@ -18,6 +26,8 @@ public class Good {
 	private String description;
 	@Column(name = "PRICE")
 	private String price;
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "orders")
+	private Set<Order> orders = new HashSet<>();
 
 	public Good() {
 	}
@@ -67,19 +77,14 @@ public class Good {
 		this.id = id;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Good good = (Good) o;
-		return id == good.id &&
-				Objects.equals(name, good.name) &&
-				Objects.equals(description, good.description) &&
-				Objects.equals(price, good.price);
+
+	public Set<Order> getOrders() {
+		return orders;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, name, description, price);
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
 	}
+
+
 }

@@ -2,9 +2,10 @@ package service;
 
 import model.Good;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BasketGood {
-	public ArrayList<Good> goodsList = new ArrayList<>();
+	public Set<Good> goodsList = new HashSet<>();
 
 }

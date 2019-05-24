@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 @WebServlet("/Basket")
 public class BasketServlet extends HttpServlet {
@@ -18,7 +18,7 @@ public class BasketServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		logger.debug("adding good to basket");
-		ArrayList<Good> basketGood = (ArrayList<Good>) req.getSession().getAttribute("BasketGood");
+		HashSet<Good> basketGood = (HashSet<Good>) req.getSession().getAttribute("BasketGood");
 		basketGood.add(new Good(req.getParameter("name"), req.getParameter("description"), req.getParameter("price")));
 		req.getSession().setAttribute("BasketGood", basketGood);
 		logger.debug("redirect to market");

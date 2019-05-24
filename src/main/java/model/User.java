@@ -5,14 +5,18 @@ import util.HashPasswordUtil;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.Objects;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "USERS")
 public class User {
 	@Id
+	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "ID")
 	private int id;
 	@Column(name = "NICKNAME")
@@ -25,6 +29,8 @@ public class User {
 	private String role;
 	@Column(name = "SALT")
 	private String salt;
+	@OneToOne(mappedBy = "user")
+	private Order order;
 
 	public User() {
 	}
@@ -109,21 +115,12 @@ public class User {
 		this.salt = salt;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		User user = (User) o;
-		return id == user.id &&
-				Objects.equals(nickname, user.nickname) &&
-				Objects.equals(password, user.password) &&
-				Objects.equals(email, user.email) &&
-				Objects.equals(role, user.role) &&
-				Objects.equals(salt, user.salt);
+	public Order getOrder() {
+		return order;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id, nickname, password, email, role, salt);
+	public void setOrder(Order order) {
+		this.order = order;
 	}
+
 }
