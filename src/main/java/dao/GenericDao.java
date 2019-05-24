@@ -6,7 +6,6 @@ import util.HibernateSessionFactoryUtil;
 
 import java.util.List;
 
-
 public abstract class GenericDao<T> {
 
 	public T getById(Class clazz, int id) {
