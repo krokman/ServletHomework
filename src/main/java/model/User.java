@@ -15,20 +15,27 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "USERS")
 public class User {
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "ID")
 	private int id;
+
 	@Column(name = "NICKNAME")
 	private String nickname;
+
 	@Column(name = "PASSWORD")
 	private String password;
+
 	@Column(name = "EMAIL")
 	private String email;
+
 	@Column(name = "ROLE")
 	private String role;
+
 	@Column(name = "SALT")
 	private String salt;
+
 	@OneToOne(mappedBy = "user")
 	private Order order;
 

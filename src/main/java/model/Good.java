@@ -16,16 +16,21 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "GOODS")
 public class Good {
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "ID")
 	private int id;
+
 	@Column(name = "NAME")
 	private String name;
+
 	@Column(name = "DESCRIPTION")
 	private String description;
+
 	@Column(name = "PRICE")
 	private String price;
+
 	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "orders")
 	private Set<Order> orders = new HashSet<>();
 

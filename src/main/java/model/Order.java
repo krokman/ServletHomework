@@ -30,6 +30,7 @@ public class Order {
 			@JoinColumn(name = "ORDER_ID", nullable = false, updatable = false)},
 			inverseJoinColumns = {@JoinColumn(name = "GOOD_ID", nullable = false, updatable = false)})
 	private Set<Good> orders = new HashSet<>();
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private User user;
 

@@ -20,7 +20,10 @@ public class Registration extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		User userReg= new User(req.getParameter("Nickname"),
-				req.getParameter("password"), req.getParameter("email"), req.getParameter("role"), true);
+				req.getParameter("password"),
+				req.getParameter("email"),
+				req.getParameter("role"),
+				true);
 		dao.add(userReg);
 		req.setAttribute("user", userReg);
 		logger.debug("new user registered");
